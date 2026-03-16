@@ -1,0 +1,53 @@
+:host {
+  display: block;
+}
+
+.sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 600;
+  color: #1f2937;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #db2777;
+  }
+
+  i {
+    font-size: 0.9rem;
+  }
+}
+
+:host ::ng-deep {
+  .p-datatable .p-datatable-thead > tr > th {
+    background: #f9fafb;
+    color: #111827;
+    font-weight: 700;
+    border-bottom: 1px solid #e5e7eb;
+    white-space: nowrap;
+  }
+
+  .p-datatable .p-datatable-tbody > tr {
+    transition: background-color 0.2s ease;
+  }
+
+  .p-datatable .p-datatable-tbody > tr:hover {
+    background: #272727;
+  }
+
+  .p-datatable .p-datatable-tbody > tr > td {
+    border-bottom: 1px solid #f3f4f6;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+
+  .p-paginator {
+    border: none;
+    padding: 0;
+    background: transparent;
+  }
+}

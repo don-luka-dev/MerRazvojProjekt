@@ -1,0 +1,84 @@
+<section class="mx-auto max-w-[1920px] p-6">
+  <header
+    class="mb-6 flex flex-col gap-4 border-b border-gray-200 pb-4 lg:flex-row lg:items-end lg:justify-between"
+  >
+    <div class="space-y-1">
+      <h2
+        class="flex items-center text-3xl font-bold tracking-tight text-gray-100"
+      >
+        <i class="pi pi-users mr-3 !text-[2rem] text-pink-600"></i>
+        Popis kupaca
+      </h2>
+
+      <p class="text-sm text-gray-300">
+        Ukupno zapisa:
+        <span class="font-semibold text-gray-300">{{ totalCount() }}</span>
+      </p>
+    </div>
+
+    <div class="flex flex-wrap gap-2">
+      <p-button
+        type="button"
+        icon="pi pi-sliders-h"
+        label="Filteri"
+        severity="info"
+        (click)="toggleFilters()"
+      ></p-button>
+
+      <p-button
+        type="button"
+        icon="pi pi-ban"
+        label="Deaktiviraj odabrane"
+        severity="danger"
+        [disabled]="!hasSelectedCustomers() || loading()"
+        (click)="bulkDeactivateSelected()"
+      ></p-button>
+
+      <p-button
+        type="button"
+        icon="pi pi-refresh"
+        label="Poništi filtere"
+        severity="secondary"
+        (click)="clearFilters()"
+      ></p-button>
+    </div>
+  </header>
+
+  @if (showFilters()) {
+  <app-customers-filters
+    [filterForm]="filterForm"
+    [nameControl]="nameControl"
+    [activeOptions]="activeOptions"
+    [citiesOptions]="citiesOptions"
+  />
+  }
+
+  <div class="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_320px]">
+    <section class="min-w-0">
+      <app-customers-table
+        [customers]="customers()"
+        [loading]="loading()"
+        [totalCount]="totalCount()"
+        [selectedCount]="selectedCount()"
+        [selectedCustomerIds]="selectedCustomerIds()"
+        [allVisibleSelected]="allVisibleSelected()"
+        [pageSize]="pageSize()"
+        [first]="first()"
+        [pageSizeOptions]="pageSizeOptions"
+        [sortBy]="sortBy()"
+        [sortDirection]="sortDirection()"
+        [isActionLoadingFn]="isActionLoading.bind(this)"
+        [getSortIconFn]="getSortIcon.bind(this)"
+        (pageChange)="onPageChange($event)"
+        (sortChange)="onSort($event)"
+        (toggleSelectAll)="toggleSelectAllVisible($event)"
+        (toggleSelection)="toggleCustomerSelection($event.customerId, $event.checked)"
+        (deactivate)="deactivateCustomer($event)"
+      />
+    </section>
+
+    <aside class="min-w-0">
+      <app-customer-stats [stats]="stats()" [loading]="statsLoading()" />
+    </aside>
+  </div>
+</section>

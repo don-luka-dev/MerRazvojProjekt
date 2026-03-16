@@ -1,0 +1,51 @@
+<section class="space-y-4">
+  @if (loading()) {
+  <div
+    class="rounded-2xl border border-gray-200 bg-white p-6 text-sm text-gray-500 shadow-sm"
+  >
+    Učitavanje statistike...
+  </div>
+  } @else if (stats()) {
+  <div class="grid grid-cols-1 gap-4">
+    <article class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+      <p class="mb-1 text-sm text-gray-500">Ukupno kupaca</p>
+      <p class="text-3xl font-bold text-gray-900">{{ stats()!.totalCount }}</p>
+    </article>
+
+    <article class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+      <p class="mb-1 text-sm text-gray-500">Aktivni</p>
+      <p class="text-3xl font-bold text-green-600">
+        {{ stats()!.activeCount }}
+      </p>
+    </article>
+
+    <article class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+      <p class="mb-1 text-sm text-gray-500">Neaktivni</p>
+      <p class="text-3xl font-bold text-red-500">
+        {{ stats()!.inactiveCount }}
+      </p>
+    </article>
+
+    <article class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+      <h3 class="mb-4 text-lg font-semibold text-gray-900">Top 5 gradova</h3>
+
+      <div class="space-y-3">
+        @for (city of stats()!.topCities; track city.city) {
+        <div
+          class="flex items-center justify-between border-b border-gray-100 pb-2 last:border-b-0 last:pb-0"
+        >
+          <span class="text-gray-700">{{ city.city }}</span>
+          <span class="font-semibold text-gray-900">{{ city.count }}</span>
+        </div>
+        }
+      </div>
+    </article>
+  </div>
+  } @else {
+  <div
+    class="rounded-2xl border border-gray-200 bg-white p-6 text-sm text-gray-500 shadow-sm"
+  >
+    Nema statistike za prikaz.
+  </div>
+  }
+</section>

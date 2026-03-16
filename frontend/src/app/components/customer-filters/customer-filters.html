@@ -1,0 +1,66 @@
+<div
+  class="p-4 mb-5 bg-white shadow rounded-2xl grid grid-cols-1 md:grid-cols-2 xl:grid-cols- gap-4 items-end"
+>
+  <div>
+    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
+      Ime
+    </label>
+    <input
+      id="name"
+      type="text"
+      pInputText
+      [formControl]="nameControl()"
+      placeholder="Min. 2 znaka..."
+      class="w-full"
+    />
+  </div>
+
+  <form [formGroup]="filterForm()" class="contents">
+    <div>
+      <label for="city" class="block text-sm font-medium text-gray-700 mb-1">
+        Grad
+      </label>
+      <p-select
+        [options]="citiesOptions()"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Odaberi grad"
+        formControlName="city"
+        inputId="city"
+        class="w-full"
+      ></p-select>
+    </div>
+
+    <div>
+      <label for="country" class="block text-sm font-medium text-gray-700 mb-1">
+        Država
+      </label>
+      <input
+        id="country"
+        type="text"
+        pInputText
+        formControlName="country"
+        placeholder="Unesi državu..."
+        class="w-full"
+      />
+    </div>
+
+    <div>
+      <label
+        for="isActive"
+        class="block text-sm font-medium text-gray-700 mb-1"
+      >
+        Status
+      </label>
+      <p-select
+        [options]="activeOptions()"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Odaberi status"
+        formControlName="isActive"
+        inputId="isActive"
+        class="w-full"
+      ></p-select>
+    </div>
+  </form>
+</div>
