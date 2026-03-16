@@ -10,7 +10,7 @@ How to run
 
 Prvo klonirati repozitorij.
 
-git clone <repo-url>
+git clone https://github.com/don-luka-dev/MerRazvojProjekt.git
 
 Backend
 
