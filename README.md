@@ -51,11 +51,3 @@ Seed generira 100 000 kupaca i sprema ih u batchovima od 5000 zapisa kako bi se 
 What I would improve with more time
 
 Dodao bih indekse u bazi za kolone koje se često filtriraju, poput imena, grada i države. Također bih dodao testove za servisni sloj i možda caching za stats endpoint.
-
-Time spent
-
-Backend implementacija oko 5 sati.
-Frontend implementacija oko 4 sata.
-Testiranje i sitna poboljšanja oko 1 sat.
-
-Ukupno otprilike 10 sati.
