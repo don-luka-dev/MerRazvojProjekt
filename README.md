@@ -32,8 +32,6 @@ ng serve
 
 Aplikacija će biti dostupna na http://localhost:4200
 
-Design decisions
-
 Pokušao sam držati controllere što jednostavnijima, pa je sva poslovna logika smještena u service layer. Controlleri uglavnom samo primaju request i vraćaju odgovarajuće HTTP statuse.
 
 Lista kupaca koristi server-side filtriranje, sortiranje i paginaciju kako frontend ne bi morao učitavati svih 100 000 zapisa odjednom.
@@ -48,6 +46,4 @@ Dodao sam i dva middlewarea: jedan za globalno hvatanje iznimki i jedan za logir
 
 Seed generira 100 000 kupaca i sprema ih u batchovima od 5000 zapisa kako bi se ubrzao unos u bazu.
 
-What I would improve with more time
-
-Dodao bih indekse u bazi za kolone koje se često filtriraju, poput imena, grada i države. Također bih dodao testove za servisni sloj i možda caching za stats endpoint.
+Sa više vremena dodao bih indekse u bazi za kolone koje se često filtriraju, poput imena, grada i države. Također bih dodao testove za servisni sloj i možda caching za stats endpoint.
