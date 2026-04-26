@@ -1,5 +1,5 @@
 ﻿using MerRazvojProjekt.Server.Data;
-using MerRazvojProjekt.Server.Models.Dto;
+using MerRazvojProjekt.Server.Models.Dto.MiscDto;
 using MerRazvojProjekt.Server.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;

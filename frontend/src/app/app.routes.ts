@@ -9,14 +9,14 @@ export const routes: Routes = [
   {
     path: 'customers',
     loadComponent: () =>
-      import('./components/customers-page/customers-page').then(
+      import('./components/customer-components/customers-page/customers-page').then(
         (m) => m.CustomersPageComponent,
       ),
   },
   {
     path: 'customers/:id',
     loadComponent: () =>
-      import('./components/customer-details/customer-details').then(
+      import('./components/customer-components/customer-details/customer-details').then(
         (m) => m.CustomerDetailsComponent,
       ),
   },

@@ -1,6 +1,6 @@
-﻿
-using MerRazvojProjekt.Server.Models.Dto;
-using MerRazvojProjekt.Server.Models.DTO;
+﻿using MerRazvojProjekt.Server.Models.Dto.CustomerDto;
+using MerRazvojProjekt.Server.Models.Dto.MiscDto;
+using MerRazvojProjekt.Server.Models.Dto.StatisticDto;
 
 namespace MerRazvojProjekt.Server.Service.Interfaces
 {

@@ -1,6 +1,5 @@
 ﻿using MerRazvojProjekt.Server.Data;
 using MerRazvojProjekt.Server.Models;
-using System;
 using System.Diagnostics;
 
 namespace MerRazvojProjekt.Server.Middlewares

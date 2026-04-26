@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using MerRazvojProjekt.Server.Data;
-using MerRazvojProjekt.Server.Models.DTO;
-using Microsoft.EntityFrameworkCore;
+using MerRazvojProjekt.Server.Models.Dto.CustomerDto;
 
 namespace MerRazvojProjekt.Server.Validators
 {

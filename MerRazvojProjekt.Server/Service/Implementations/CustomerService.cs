@@ -2,11 +2,12 @@
 using Mapster;
 using MerRazvojProjekt.Server.Data;
 using MerRazvojProjekt.Server.Models;
-using MerRazvojProjekt.Server.Models.Dto;
-using MerRazvojProjekt.Server.Models.DTO;
 using MerRazvojProjekt.Server.Extensions;
 using MerRazvojProjekt.Server.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using MerRazvojProjekt.Server.Models.Dto.CustomerDto;
+using MerRazvojProjekt.Server.Models.Dto.MiscDto;
+using MerRazvojProjekt.Server.Models.Dto.StatisticDto;
 
 namespace MerRazvojProjekt.Server.Service.Implementations
 {
@@ -110,14 +111,19 @@ namespace MerRazvojProjekt.Server.Service.Implementations
 
         public async Task<GetCustomerDto?> GetByIdAsync(int id)
         {
-            var customer = await dbContext.Customers.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
+            var customer = await dbContext.Customers
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.Id == id)
+                ?? throw new KeyNotFoundException($"Customer with ID {id} not found.");
+
             return customer?.Adapt<GetCustomerDto>();   
         }
 
         public async Task<bool> SoftDeleteAsync(int id)
         {
-            var customer = await dbContext.Customers.FindAsync(id);
-            if (customer == null) return false;
+            var customer = await dbContext.Customers
+                .FindAsync(id)
+                ?? throw new KeyNotFoundException($"Customer with ID {id} not found.");
 
             customer.IsActive = false;
             customer.LastModifiedAt = DateTime.UtcNow;
@@ -129,10 +135,16 @@ namespace MerRazvojProjekt.Server.Service.Implementations
 
         public async Task<GetCustomerDto?> UpdateAsync(int id, UpsertCustomerDto dto)
         {
-            var customer = await dbContext.Customers.FindAsync(id);
+            var validationResult = await validator.ValidateAsync(dto);
 
-            if (customer == null)
-                return null;
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
+
+            var customer = await dbContext.Customers
+                .FindAsync(id)
+                ?? throw new KeyNotFoundException($"Customer with ID {id} not found.");
 
             if (await dbContext.Customers.AnyAsync(c => c.Email == dto.Email && c.Id != id))
                 throw new InvalidOperationException("Email already exists");
@@ -148,8 +160,7 @@ namespace MerRazvojProjekt.Server.Service.Implementations
 
         public async Task<int> BulkDeactivateAsync(IEnumerable<int> customerIds)
         {
-            if (customerIds is null)
-                throw new ArgumentNullException(nameof(customerIds));
+            ArgumentNullException.ThrowIfNull(customerIds);
 
             var distinctIds = customerIds
                 .Distinct()

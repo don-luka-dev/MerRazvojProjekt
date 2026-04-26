@@ -1,21 +1,16 @@
-﻿using MerRazvojProjekt.Server.Models.Dto;
-using MerRazvojProjekt.Server.Models.DTO;
+﻿using MerRazvojProjekt.Server.Models.Dto.CustomerDto;
+using MerRazvojProjekt.Server.Models.Dto.MiscDto;
+using MerRazvojProjekt.Server.Models.Dto.StatisticDto;
 using MerRazvojProjekt.Server.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting;
 
 namespace MerRazvojProjekt.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerController : ControllerBase
+    public class CustomerController(ICustomerService customerService) : ControllerBase
     {
-        private readonly ICustomerService _customerService;
-
-        public CustomerController(ICustomerService customerService)
-        {
-            _customerService = customerService;
-        }
+        private readonly ICustomerService _customerService = customerService;
 
         [HttpPost]
         public async Task<ActionResult<GetCustomerDto>> Add([FromBody] UpsertCustomerDto dto)
@@ -29,9 +24,7 @@ namespace MerRazvojProjekt.Server.Controllers
         public async Task<ActionResult<GetCustomerDto>> GetById(int id)
         {
             var result = await _customerService.GetByIdAsync(id);
-            if (result is null)
-                return NotFound();     
-                return Ok(result);
+             return Ok(result);
         }
 
         [HttpGet]
@@ -44,9 +37,7 @@ namespace MerRazvojProjekt.Server.Controllers
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> SoftDelete(int id)
         {
-            var result = await _customerService.SoftDeleteAsync(id);
-            if (!result)
-                return NotFound();
+            await _customerService.SoftDeleteAsync(id);
             return NoContent();
         }
 
@@ -54,10 +45,6 @@ namespace MerRazvojProjekt.Server.Controllers
         public async Task<ActionResult<GetCustomerDto>> Update(int id, [FromBody] UpsertCustomerDto dto)
         {
             var result = await _customerService.UpdateAsync(id, dto);
-
-            if (result == null)
-                return NotFound();
-
             return Ok(result);
         }
 
@@ -65,7 +52,6 @@ namespace MerRazvojProjekt.Server.Controllers
         public async Task<IActionResult> BulkDeactivate([FromBody] List<int> customerIds)
         {
             var updatedCount = await _customerService.BulkDeactivateAsync(customerIds);
-
             return Ok(new { updatedCount });
         }
 

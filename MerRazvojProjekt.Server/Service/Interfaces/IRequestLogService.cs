@@ -1,4 +1,4 @@
-﻿using MerRazvojProjekt.Server.Models.Dto;
+﻿using MerRazvojProjekt.Server.Models.Dto.MiscDto;
 
 namespace MerRazvojProjekt.Server.Service.Interfaces
 {

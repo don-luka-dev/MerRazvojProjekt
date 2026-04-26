@@ -47,7 +47,10 @@ namespace MerRazvojProjekt.Server
 
             builder.Services.AddScoped<IRequestLogService, RequestLogService>();
             builder.Services.AddScoped<ICustomerService, CustomerService>();
+            builder.Services.AddScoped<ICarService, CarService>();
             builder.Services.AddValidatorsFromAssemblyContaining<CustomerDtoValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<CarDtoValidator>();
+
 
             builder.Services.RegisterMapsterConfiguration();
 
@@ -72,6 +75,7 @@ namespace MerRazvojProjekt.Server
                 var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 await dbContext.Database.MigrateAsync();
                 await ApplicationDbSeeder.SeedCustomersAsync(dbContext);
+                await ApplicationDbSeeder.SeedCarsAsync(dbContext);
             }
 
             app.Run();
